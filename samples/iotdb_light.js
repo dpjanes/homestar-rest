@@ -1,7 +1,14 @@
 /*
  *  How to use this module in IOTDB / HomeStar
- *  This is the best way to do this
+ *  ** his is the best way to do this**
+ *
+ *  Note: 
  *  Note: to work, this package must have been installed by 'homestar install' 
+ *  or do in the package homedirectory:
+ *  homestar set /modules/homestar-rest $PWD
+ *
+ *  See README for how to get corresponding
+ *  web service up and running
  */
 
 var iotdb = require('iotdb')

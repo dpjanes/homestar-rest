@@ -27,6 +27,7 @@ exports.bindings = [
     require('./models/RESTSimpleLight').binding,
     require('./models/RESTDimmerLight').binding,
     require('./models/RESTColorLight').binding,
+    require('./models/RESTColorLight').binding_rgb,
 ];
 
 exports.iotdb = require("iotdb");

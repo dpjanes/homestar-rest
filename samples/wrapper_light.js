@@ -1,4 +1,10 @@
 /*
+ *  This is an example of how to use this
+ *  package directory. We do not recommend
+ *  you do this: see iotdb_* for the "right" way
+ *
+ *  See README for how to get corresponding
+ *  web service up and running
  */
 
 var iotdb = require("iotdb");

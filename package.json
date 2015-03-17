@@ -4,8 +4,8 @@
         "url": "https://github.com/dpjanes/homestar-rest/issues"
     }, 
     "dependencies": {
-        "iotdb": ">=0.4.16", 
-        "unirest": ""
+        "iotdb": ">=0.5.3", 
+        "unirest": "~0.4.0"
     }, 
     "description": "HomeStar / IOTDB Bridge for REST", 
     "devDependencies": {

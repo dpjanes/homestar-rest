@@ -50,3 +50,9 @@ are written in Python. You can send GET, PUT and PATCH commands
          "on": true, 
          "red": 1.0
     }
+
+# Models
+
+The Models included are only for Demo purposes. 
+My home is we can actually pull in models from
+elsewhere rather than having to re-spec them.

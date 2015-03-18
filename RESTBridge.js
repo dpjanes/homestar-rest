@@ -170,7 +170,7 @@ RESTBridge.prototype.push = function (pushd) {
 
     unirest[self.connectd.push_method](self.initd.url)
         .type('json')
-        .json(pushd)
+        .json(self._process_out(pushd))
         .end(function (result) {
             if (result.error) {
                 logger.error({
@@ -179,7 +179,7 @@ RESTBridge.prototype.push = function (pushd) {
                     error: result.error,
                 }, "can't PUT to URL");
             } else {
-                self._process(result.body);
+                self._process_in(result.body);
             }
         });
 };
@@ -273,12 +273,26 @@ RESTBridge.prototype._fetch = function () {
                 }, "can't get url");
                 return;
             } else {
-                self._process(result.body);
+                self._process_in(result.body);
             }
         });
 };
 
-RESTBridge.prototype._process = function (rawd) {
+RESTBridge.prototype._process_out = function (cookd) {
+    var self = this;
+
+    if (self.connectd.data_out) {
+        var paramd = {
+            rawd: {},
+            cookd: cookd,
+        };
+        self.connectd.data_out(paramd);
+        return paramd.rawd;
+    } else {
+        return cookd;
+    }
+};
+RESTBridge.prototype._process_in = function (rawd) {
     var self = this;
 
     if (self.connectd.data_in) {

@@ -22,6 +22,23 @@ exports.binding = {
     bridge: require('../RESTBridge').Bridge,
     model: exports.Model,
     connectd: {
+        data_in: function(paramd) {
+        },
+
+        data_out: function(paramd) {
+            if (paramd.cookd.on !== undefined) {
+                paramd.rawd.on = paramd.cookd.on ? true : false;
+            }
+            if (paramd.cookd.color !== undefined) {
+                var color = new _.Color(paramd.cookd.color);
+                paramd.rawd.rgb = color.get_hex();
+                if (paramd.rawd.rgb === "#000000") {
+                    paramd.rawd.on = false;
+                } else {
+                    paramd.rawd.on = true;
+                }
+            }
+        },
     },
 };
 
@@ -30,7 +47,7 @@ exports.binding_rgb = {
     bridge: require('../RESTBridge').Bridge,
     model: exports.Model,
     // note changing the name of the Model on the next line
-    model_code: "RESTColorLightRGB",    
+    model_code: "RESTRGBLight",    
     connectd: {
         data_in: function(paramd) {
         },

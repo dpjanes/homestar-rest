@@ -33,7 +33,8 @@ echo "=================="
         --exclude "node_modules" \
         README.md LICENSE \
         homestar.json package.json \
-        *.js \
+        RESTBridge.js index.js \
+        models/*.js \
         |
     ( cd "${NPM_DST}" && tar xvf - )
 

@@ -23,6 +23,14 @@ exports.binding = {
     model: exports.Model,
     connectd: {
         data_in: function(paramd) {
+            if (paramd.rawd.on !== undefined) {
+                paramd.cookd.on = true;
+            }
+
+            if ((paramd.rawd.rgb !== undefined)) {
+                var color = new _.Color(paramd.cookd.rgb);
+                paramd.cookd.color = color.get_hex();
+            }
         },
 
         data_out: function(paramd) {
@@ -50,6 +58,18 @@ exports.binding_rgb = {
     model_code: "RESTRGBLight",    
     connectd: {
         data_in: function(paramd) {
+            if (paramd.rawd.on !== undefined) {
+                paramd.cookd.on = true;
+            }
+
+            if ((paramd.rawd.red !== undefined) &&
+                (paramd.rawd.green !== undefined) &&
+                (paramd.rawd.blue !== undefined)) {
+                var color = new _.Color();
+                color.set_rgb_1(paramd.rawd.red, paramd.rawd.green, paramd.rawd.blue);
+
+                paramd.cookd.color = color.get_hex();
+            }
         },
 
         data_out: function(paramd) {

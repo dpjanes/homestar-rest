@@ -59,6 +59,7 @@ var RESTBridge = function (initd, native) {
         }
     );
 
+    
     self.native = native;
     self.connected = null;
 };

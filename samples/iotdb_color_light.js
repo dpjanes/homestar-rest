@@ -1,15 +1,13 @@
 /*
  *  How to use this module in IOTDB / HomeStar
- *  ** his is the best way to do this**
+ *  ** this is the best way to do this**
  *
- *  Note: 
  *  Note: to work, this package must have been installed by 'homestar install' 
  *  or do in the package homedirectory:
  *  homestar set /modules/homestar-rest $PWD
  *
  *  See README for how to get corresponding
  *  web service up and running
- *  $ python serve.py rgb_2
  */
 
 var iotdb = require('iotdb')
@@ -17,7 +15,7 @@ var _ = iotdb._;
 var iot = iotdb.iot();
 
 var things = iot.connect("RESTColorLight", {
-    url: "http://0.0.0.0:9141/",
+    url: "http://0.0.0.0:27772/basement/hue/1",
 });
 things.on('state', function(thing) {
     console.log("+ state\n ", thing.thing_id(), "\n ", thing.state());

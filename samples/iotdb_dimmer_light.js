@@ -1,8 +1,7 @@
 /*
  *  How to use this module in IOTDB / HomeStar
- *  ** his is the best way to do this**
+ *  ** this is the best way to do this**
  *
- *  Note: 
  *  Note: to work, this package must have been installed by 'homestar install' 
  *  or do in the package homedirectory:
  *  homestar set /modules/homestar-rest $PWD
@@ -16,7 +15,7 @@ var _ = iotdb._;
 var iot = iotdb.iot();
 
 var things = iot.connect("RESTDimmerLight", {
-    url: "http://0.0.0.0:9111/",
+    url: "http://0.0.0.0:27772/basement/dimmer/1",
 });
 things.on('state', function(thing) {
     console.log("+ state\n ", thing.thing_id(), "\n ", thing.state());

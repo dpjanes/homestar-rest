@@ -1,7 +1,9 @@
 /*
  *  This is an example of how to use this
- *  package directory. We do not recommend
- *  you do this: see iotdb_* for the "right" way
+ *  package directory. 
+ *
+ *  Note: We do not recommend you do this: 
+ *  see iotdb_* samples for the "right" way
  *
  *  See README for how to get corresponding
  *  web service up and running
@@ -10,10 +12,10 @@
 var iotdb = require("iotdb");
 var _ = iotdb._;
 
-var ModelBinding = require('../RESTLight');
+var ModelBinding = require('../models/RESTSimpleLight');
 
 wrapper = _.bridge_wrapper(ModelBinding.binding, {
-    url: "http://0.0.0.0:9111/",
+    url: "http://0.0.0.0:27772/bedroom/light",
 });
 wrapper.on('bridge', function(bridge) {
     console.log("+ discovered\n ", _.ld.compact(bridge.meta()));

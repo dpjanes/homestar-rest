@@ -28,7 +28,7 @@ var _ = iotdb._;
 var bunyan = iotdb.bunyan;
 
 var unirest = require('unirest');
-var stream = require('stream');
+var url = require('url');
 
 var logger = bunyan.createLogger({
     name: 'homestar-rest',
@@ -53,15 +53,20 @@ var RESTBridge = function (initd, native) {
     self.initd = _.defaults(initd,
         iotdb.keystore().get("bridges/RESTBridge/initd"),
         {
-            poll: 120,
             url: null,
             name: null,
+            queue: true,    // if true, queue all requests
+            poll: 120,      // poll for value this many seconds
         }
     );
 
     
     self.native = native;
-    self.connected = null;
+
+    if (self.native && self.initd.queue) {
+        self._reachable = true;
+        self._queue = _.queue("RESTBridge:" + url.parse(self.initd.url).host);
+    }
 };
 
 /* --- lifecycle --- */
@@ -159,30 +164,35 @@ RESTBridge.prototype.disconnect = function () {
  */
 RESTBridge.prototype.push = function (pushd) {
     var self = this;
-    if (!self.native) {
-        return;
-    }
 
-    logger.info({
-        method: "push",
-        unique_id: self.unique_id,
-        pushd: pushd,
-    }, "pushed");
+    self._run(function() {
+        if (!self.native) {
+            return;
+        }
 
-    unirest[self.connectd.push_method](self.initd.url)
-        .type('json')
-        .json(self._process_out(pushd))
-        .end(function (result) {
-            if (result.error) {
-                logger.error({
-                    method: "push",
-                    url: self.initd.url,
-                    error: result.error,
-                }, "can't PUT to URL");
-            } else {
-                self._process_in(result.body);
-            }
-        });
+        logger.info({
+            method: "push",
+            unique_id: self.unique_id,
+            pushd: pushd,
+        }, "pushed");
+
+        unirest[self.connectd.push_method](self.initd.url)
+            .type('json')
+            .json(self._process_out(pushd))
+            .end(function (result) {
+                if (result.error) {
+                    logger.error({
+                        method: "push",
+                        url: self.initd.url,
+                        error: result.error,
+                    }, "can't PUT to URL");
+                    self._set_reachable(false);
+                } else {
+                    self._set_reachable(true);
+                    self._process_in(result.body);
+                }
+            });
+    });
 };
 
 /**
@@ -234,7 +244,7 @@ RESTBridge.prototype.meta = function () {
  *  shutdown states, they will be always checked first.
  */
 RESTBridge.prototype.reachable = function () {
-    return this.native !== null;
+    return (this.native !== null) && this._reachable;
 };
 
 /**
@@ -258,25 +268,32 @@ RESTBridge.prototype.pulled = function (pulld) {
 RESTBridge.prototype._fetch = function () {
     var self = this;
 
-    logger.info({
-        method: "_fetch",
-        feed: self.initd.url,
-    }, "called");
+    self._run(function() {
+        if (!self.native) {
+            return;
+        }
 
-    unirest
-        .get(self.initd.url)
-        .end(function (result) {
-            if (result.error) {
-                logger.error({
-                    method: "_fetch",
-                    url: self.initd.url,
-                    error: result.error,
-                }, "can't get url");
-                return;
-            } else {
-                self._process_in(result.body);
-            }
-        });
+        logger.info({
+            method: "_fetch",
+            feed: self.initd.url,
+        }, "called");
+
+        unirest
+            .get(self.initd.url)
+            .end(function (result) {
+                if (result.error) {
+                    logger.error({
+                        method: "_fetch",
+                        url: self.initd.url,
+                        error: result.error,
+                    }, "can't get url");
+                    self._set_reachable(false);
+                } else {
+                    self._set_reachable(true);
+                    self._process_in(result.body);
+                }
+            });
+    });
 };
 
 RESTBridge.prototype._process_out = function (cookd) {
@@ -293,6 +310,7 @@ RESTBridge.prototype._process_out = function (cookd) {
         return cookd;
     }
 };
+
 RESTBridge.prototype._process_in = function (rawd) {
     var self = this;
 
@@ -305,6 +323,33 @@ RESTBridge.prototype._process_in = function (rawd) {
         self.pulled(paramd.cookd);
     } else {
         self.pulled(rawd);
+    }
+};
+
+RESTBridge.prototype._set_reachable = function (reachable) {
+    var self = this;
+
+    if (reachable === self._reachable) {
+        return;
+    }
+
+    self._reachable = reachable;
+    self.pulled();
+};
+
+RESTBridge.prototype._run = function (f) {
+    var self = this;
+
+    if (self._queue) {
+        var qitem = {
+            run: function () {
+                f();
+                self._queue.finished(qitem);
+            },
+        };
+        self._queue.add(qitem);
+    } else {
+        f();
     }
 };
 

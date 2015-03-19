@@ -19,37 +19,21 @@ If you're a developer, run this command in extract directory
 
 # Simulators for Testing the Samples
 
-We've create a number of SmartHome simulators. These
-are written in Python. You can send GET, PUT and PATCH commands
+We've created a SmartHome simulator, written in Python.
+You can send GET, PUT and PATCH.
 
     $ git clone https://github.com/dpjanes/iotdb-simulators
-
-## Dimmer Simulator
-
-    $ python serve.py dimmer_1 &
-    $ curl http://0.0.0.0:9111/
+    $ cd iotdb-simulators
+    $ python serve.py --port 27772 website_home_1 &
+    $ curl 'http://0.0.0.0:27772'
     {
-        "brightness": 1.0, 
-        "on": true
-    }
-
-## RGB Light Simulator
-
-    $ python serve.py rgb_2 &
-    $ curl http://0.0.0.0:9141/
-    {
-         "on": true, 
-         "rgb": "#FF0000"
-    }
-
-    $ python serve.py rgb_1 &
-    $ curl http://0.0.0.0:9131/
-    {
-         "blue": 1.0, 
-         "green": 1.0, 
-         "on": true, 
-         "red": 1.0
-    }
+       "basement": {
+          "hue": {
+             "1": {
+                "on": true, 
+                "rgb": "#FF0000"
+             }, 
+    …
 
 # Models
 

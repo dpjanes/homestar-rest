@@ -24,7 +24,7 @@ exports.binding = {
     connectd: {
         data_in: function(paramd) {
             if (paramd.rawd.on !== undefined) {
-                paramd.cookd.on = true;
+                paramd.cookd.on = paramd.rawd.on ? true  : false;
             }
 
             if ((paramd.rawd.rgb !== undefined)) {
@@ -59,7 +59,7 @@ exports.binding_rgb = {
     connectd: {
         data_in: function(paramd) {
             if (paramd.rawd.on !== undefined) {
-                paramd.cookd.on = true;
+                paramd.cookd.on = paramd.rawd.on ? true : false;
             }
 
             if ((paramd.rawd.red !== undefined) &&
@@ -76,6 +76,7 @@ exports.binding_rgb = {
             if (paramd.cookd.on !== undefined) {
                 paramd.rawd.on = paramd.cookd.on ? true : false;
             }
+
             if (paramd.cookd.color !== undefined) {
                 var color = new _.Color(paramd.cookd.color);
                 paramd.rawd.red = color.r;

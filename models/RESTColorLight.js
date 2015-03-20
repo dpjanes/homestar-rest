@@ -28,7 +28,7 @@ exports.binding = {
             }
 
             if ((paramd.rawd.rgb !== undefined)) {
-                var color = new _.Color(paramd.cookd.rgb);
+                var color = new _.Color(paramd.rawd.rgb);
                 paramd.cookd.color = color.get_hex();
             }
         },

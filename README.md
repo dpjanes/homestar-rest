@@ -19,8 +19,14 @@ If you're a developer, run this command in extract directory
 
 # Simulators for Testing the Samples
 
-We've created a SmartHome simulator, written in Python.
+We've created a SmartHome simulator, written in Python. 
+This is running here
+
+    http://playground-home.iotdb.org/
+
 You can send GET, PUT and PATCH.
+
+If you'd like to run this yourself:
 
     $ git clone https://github.com/dpjanes/iotdb-simulators
     $ cd iotdb-simulators

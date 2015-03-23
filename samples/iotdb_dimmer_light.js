@@ -15,7 +15,7 @@ var _ = iotdb._;
 var iot = iotdb.iot();
 
 var things = iot.connect("RESTDimmerLight", {
-    url: "http://0.0.0.0:27772/basement/dimmer/1",
+    url: "http://playground-home.iotdb.org/basement/dimmer/1",
 });
 things.on('state', function(thing) {
     console.log("+ state\n ", thing.thing_id(), "\n ", thing.state());

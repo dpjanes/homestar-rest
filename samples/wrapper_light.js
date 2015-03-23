@@ -15,7 +15,7 @@ var _ = iotdb._;
 var ModelBinding = require('../models/RESTSimpleLight');
 
 wrapper = _.bridge_wrapper(ModelBinding.binding, {
-    url: "http://0.0.0.0:27772/bedroom/light",
+    url: "http://playground-home.iotdb.org/bedroom/light",
 });
 wrapper.on('bridge', function(bridge) {
     console.log("+ discovered\n ", _.ld.compact(bridge.meta()));

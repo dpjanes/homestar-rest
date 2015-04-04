@@ -22,7 +22,7 @@
 
 "use strict";
 
-exports.Bridge = require('./RESTBridge');
+exports.Bridge = require('./RESTBridge').Bridge;
 exports.bindings = [
     require('./models/RESTSimpleLight').binding,
     require('./models/RESTDimmerLight').binding,

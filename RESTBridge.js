@@ -69,6 +69,12 @@ var RESTBridge = function (initd, native) {
     }
 };
 
+RESTBridge.prototype = new iotdb.Bridge();
+
+RESTBridge.prototype.name = function () {
+    return "RESTBridge";
+};
+
 /* --- lifecycle --- */
 
 /**

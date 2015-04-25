@@ -98,9 +98,15 @@ RESTBridge.prototype.connect = function (connectd) {
         return;
     }
 
-    self.connectd = _.defaults(connectd, {
-        push_method: 'put',
-    });
+    self._validate_connect(connectd);
+
+    self.connectd = _.defaults(
+        connectd,
+        {
+            push_method: 'put',
+        },
+        self.connectd
+    );
 
     self._setup_polling();
     self.pull();

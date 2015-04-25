@@ -227,15 +227,6 @@ RESTBridge.prototype.reachable = function () {
  */
 RESTBridge.prototype.configure = function (app) {};
 
-/* --- injected: THIS CODE WILL BE REMOVED AT RUNTIME, DO NOT MODIFY  --- */
-RESTBridge.prototype.discovered = function (bridge) {
-    throw new Error("RESTBridge.discovered not implemented");
-};
-
-RESTBridge.prototype.pulled = function (pulld) {
-    throw new Error("RESTBridge.pulled not implemented");
-};
-
 /* --- Internals --- */
 RESTBridge.prototype._fetch = function () {
     var self = this;

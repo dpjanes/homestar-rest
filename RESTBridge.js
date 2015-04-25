@@ -72,7 +72,7 @@ RESTBridge.prototype.name = function () {
 /* --- lifecycle --- */
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#discover} for documentation.
  */
 RESTBridge.prototype.discover = function () {
     var self = this;
@@ -90,7 +90,7 @@ RESTBridge.prototype.discover = function () {
 };
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#connect} for documentation.
  */
 RESTBridge.prototype.connect = function (connectd) {
     var self = this;
@@ -143,7 +143,7 @@ RESTBridge.prototype._forget = function () {
 };
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#disconnect} for documentation.
  */
 RESTBridge.prototype.disconnect = function () {
     var self = this;
@@ -157,7 +157,7 @@ RESTBridge.prototype.disconnect = function () {
 /* --- data --- */
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#push} for documentation.
  */
 RESTBridge.prototype.push = function (pushd) {
     var self = this;
@@ -195,7 +195,7 @@ RESTBridge.prototype.push = function (pushd) {
 };
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#pull} for documentation.
  */
 RESTBridge.prototype.pull = function () {
     var self = this;
@@ -209,7 +209,7 @@ RESTBridge.prototype.pull = function () {
 /* --- state --- */
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#meta} for documentation.
  */
 RESTBridge.prototype.meta = function () {
     var self = this;
@@ -224,14 +224,14 @@ RESTBridge.prototype.meta = function () {
 };
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#reachable} for documentation.
  */
 RESTBridge.prototype.reachable = function () {
     return (this.native !== null) && this._reachable;
 };
 
 /**
- *  See {iotdb.bridge.Bridge#XXX} for documentation.
+ *  See {iotdb.bridge.Bridge#configure} for documentation.
  */
 RESTBridge.prototype.configure = function (app) {};
 

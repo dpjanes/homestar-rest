@@ -22,9 +22,9 @@ exports.binding = {
     bridge: require('../RESTBridge').Bridge,
     model: exports.Model,
     connectd: {
-        data_in: function(paramd) {
+        data_in: function (paramd) {
             if (paramd.rawd.on !== undefined) {
-                paramd.cookd.on = paramd.rawd.on ? true  : false;
+                paramd.cookd.on = paramd.rawd.on ? true : false;
             }
 
             if ((paramd.rawd.rgb !== undefined)) {
@@ -33,7 +33,7 @@ exports.binding = {
             }
         },
 
-        data_out: function(paramd) {
+        data_out: function (paramd) {
             if (paramd.cookd.on !== undefined) {
                 paramd.rawd.on = paramd.cookd.on ? true : false;
             }
@@ -55,9 +55,9 @@ exports.binding_rgb = {
     bridge: require('../RESTBridge').Bridge,
     model: exports.Model,
     // note changing the name of the Model on the next line
-    model_code: "RESTRGBLight",    
+    model_code: "RESTRGBLight",
     connectd: {
-        data_in: function(paramd) {
+        data_in: function (paramd) {
             if (paramd.rawd.on !== undefined) {
                 paramd.cookd.on = paramd.rawd.on ? true : false;
             }
@@ -72,7 +72,7 @@ exports.binding_rgb = {
             }
         },
 
-        data_out: function(paramd) {
+        data_out: function (paramd) {
             if (paramd.cookd.on !== undefined) {
                 paramd.rawd.on = paramd.cookd.on ? true : false;
             }
@@ -83,7 +83,7 @@ exports.binding_rgb = {
                 paramd.rawd.green = color.g;
                 paramd.rawd.blue = color.b;
 
-                if ((color.r > 0) || (color.g > 0) ||(color.b > 0)) {
+                if ((color.r > 0) || (color.g > 0) || (color.b > 0)) {
                     paramd.rawd.on = true;
                 } else {
                     paramd.rawd.on = false;

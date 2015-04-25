@@ -9,31 +9,33 @@
  *  web service up and running
  */
 
+"use strict";
+
 var iotdb = require("iotdb");
 var _ = iotdb._;
 
 var ModelBinding = require('../models/RESTSimpleLight');
 
-wrapper = _.bridge_wrapper(ModelBinding.binding, {
+var wrapper = _.bridge_wrapper(ModelBinding.binding, {
     url: "http://playground-home.iotdb.org/bedroom/light",
 });
-wrapper.on('bridge', function(bridge) {
+wrapper.on('bridge', function (bridge) {
     console.log("+ discovered\n ", _.ld.compact(bridge.meta()));
 
     var on = false;
-    setInterval(function() {
+    setInterval(function () {
         bridge.push({
             on: on,
         });
         on = !on;
     }, 2 * 1000);
-})
-wrapper.on('state', function(bridge, state) {
+});
+wrapper.on('state', function (bridge, state) {
     console.log("+ state", state);
-})
-wrapper.on('meta', function(bridge) {
+});
+wrapper.on('meta', function (bridge) {
     console.log("+ meta", _.ld.compact(bridge.meta()));
-})
-wrapper.on('disconnected', function(bridge) {
+});
+wrapper.on('disconnected', function (bridge) {
     console.log("+ disconnected", _.ld.compact(bridge.meta()));
-})
+});

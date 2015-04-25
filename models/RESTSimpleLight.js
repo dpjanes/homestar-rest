@@ -18,6 +18,5 @@ exports.Model = iotdb.make_model('RESTSimpleLight')
 exports.binding = {
     bridge: require('../RESTBridge').Bridge,
     model: exports.Model,
-    connectd: {
-    },
+    connectd: {},
 };

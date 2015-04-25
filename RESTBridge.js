@@ -45,16 +45,15 @@ var RESTBridge = function (initd, native) {
     var self = this;
 
     self.initd = _.defaults(initd,
-        iotdb.keystore().get("bridges/RESTBridge/initd"),
-        {
+        iotdb.keystore().get("bridges/RESTBridge/initd"), {
             url: null,
             name: null,
-            queue: true,    // if true, queue all requests
-            poll: 120,      // poll for value this many seconds
+            queue: true, // if true, queue all requests
+            poll: 120, // poll for value this many seconds
         }
     );
 
-    
+
     self.native = native;
 
     if (self.native && self.initd.queue) {
@@ -101,8 +100,7 @@ RESTBridge.prototype.connect = function (connectd) {
     self._validate_connect(connectd);
 
     self.connectd = _.defaults(
-        connectd,
-        {
+        connectd, {
             push_method: 'put',
         },
         self.connectd
@@ -164,7 +162,7 @@ RESTBridge.prototype.push = function (pushd) {
 
     self._validate_push(pushd);
 
-    self._run(function() {
+    self._run(function () {
         if (!self.native) {
             return;
         }
@@ -239,7 +237,7 @@ RESTBridge.prototype.configure = function (app) {};
 RESTBridge.prototype._fetch = function () {
     var self = this;
 
-    self._run(function() {
+    self._run(function () {
         if (!self.native) {
             return;
         }

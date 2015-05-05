@@ -1,6 +1,8 @@
 # homestar-rest
 IOTDB / HomeStar Controller for REST / Web Interfaces
 
+<img src="https://github.com/dpjanes/iotdb-homestar/blob/master/docs/HomeStar.png" align="right" />
+
 
 See <a href="samples/">the samples</a> for details how to add to your project,
 particularly ones called <code>iotdb\_\*.js</code>

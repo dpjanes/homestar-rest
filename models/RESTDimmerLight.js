@@ -20,4 +20,5 @@ exports.binding = {
     bridge: require('../RESTBridge').Bridge,
     model: exports.Model,
     connectd: {},
+    discover: false,
 };

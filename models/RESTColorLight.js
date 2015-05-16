@@ -21,6 +21,7 @@ exports.Model = iotdb.make_model('RESTColorLight')
 exports.binding = {
     bridge: require('../RESTBridge').Bridge,
     model: exports.Model,
+    discover: false,
     connectd: {
         data_in: function (paramd) {
             if (paramd.rawd.on !== undefined) {
@@ -54,6 +55,7 @@ exports.binding = {
 exports.binding_rgb = {
     bridge: require('../RESTBridge').Bridge,
     model: exports.Model,
+    discover: false,
     // note changing the name of the Model on the next line
     model_code: "RESTRGBLight",
     connectd: {

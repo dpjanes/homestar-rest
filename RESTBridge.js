@@ -157,13 +157,14 @@ RESTBridge.prototype.disconnect = function () {
 /**
  *  See {iotdb.bridge.Bridge#push} for documentation.
  */
-RESTBridge.prototype.push = function (pushd) {
+RESTBridge.prototype.push = function (pushd, done) {
     var self = this;
 
     self._validate_push(pushd);
 
     self._run(function () {
         if (!self.native) {
+            done(new Error("not connected"));
             return;
         }
 
@@ -188,6 +189,8 @@ RESTBridge.prototype.push = function (pushd) {
                     self._set_reachable(true);
                     self._process_in(result.body);
                 }
+
+                done(result.error);
             });
     });
 };

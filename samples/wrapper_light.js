@@ -26,7 +26,7 @@ wrapper.on('bridge', function (bridge) {
     setInterval(function () {
         bridge.push({
             on: on,
-        });
+        }, function() {});
         on = !on;
     }, 2 * 1000);
 });

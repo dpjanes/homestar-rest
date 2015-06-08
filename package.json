@@ -4,7 +4,7 @@
         "url": "https://github.com/dpjanes/homestar-rest/issues"
     }, 
     "dependencies": {
-        "iotdb": ">=0.7.4", 
+        "iotdb": "~0.7.6", 
         "mqtt": "~1.2.1", 
         "unirest": "~0.4.2"
     }, 
@@ -33,5 +33,5 @@
     "scripts": {
         "test": "grunt"
     }, 
-    "version": "0.1.3"
+    "version": "0.1.4"
 }

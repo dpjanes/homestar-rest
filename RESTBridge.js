@@ -29,6 +29,7 @@ var bunyan = iotdb.bunyan;
 
 var unirest = require('unirest');
 var url = require('url');
+var mqtt = require('mqtt');
 
 var logger = bunyan.createLogger({
     name: 'homestar-rest',
@@ -50,6 +51,7 @@ var RESTBridge = function (initd, native) {
             name: null,
             queue: true, // if true, queue all requests
             poll: 120, // poll for value this many seconds
+            mqtt: true, // allow MQTT to update remotely
         }
     );
 
@@ -57,7 +59,7 @@ var RESTBridge = function (initd, native) {
     self.native = native;
 
     if (self.native && self.initd.queue) {
-        self._reachable = true;
+        self._reachable = false;
         self._queue = _.queue("RESTBridge:" + url.parse(self.initd.url).host);
     }
 };
@@ -261,11 +263,12 @@ RESTBridge.prototype._fetch = function () {
                     }, "can't get url");
                     self._set_reachable(false);
                 } else {
+                    self._mqtt_setup(result.headers);
                     self._set_reachable(true);
                     self._process_in(result.body);
                 }
             });
-    });
+    }, "_fetch");
 };
 
 RESTBridge.prototype._process_out = function (cookd) {
@@ -309,11 +312,12 @@ RESTBridge.prototype._set_reachable = function (reachable) {
     self.pulled();
 };
 
-RESTBridge.prototype._run = function (f) {
+RESTBridge.prototype._run = function (f, id) {
     var self = this;
 
     if (self._queue) {
         var qitem = {
+            id: id,
             run: function () {
                 f();
                 self._queue.finished(qitem);
@@ -323,6 +327,122 @@ RESTBridge.prototype._run = function (f) {
     } else {
         f();
     }
+};
+
+RESTBridge.prototype._mqtt_setup = function (headers) {
+    var self = this;
+
+    if (self.mqtt_checked) {
+        return;
+    }
+
+    self.mqtt_checked = true;
+
+    if (!self.initd.mqtt) {
+        return;
+    }
+
+    if (!headers.link) {
+        return;
+    }
+
+    var ldd = _.http.parse_link(headers.link);
+    for (var url in ldd) {
+        var ld = ldd[url];
+        if (ld.rel !== "mqtt") {
+            continue;
+        }
+
+        self._mqtt_monitor(url, ld);
+        break;
+    }
+};
+
+RESTBridge.prototype._mqtt_monitor = function (mqtt_url, ld) {
+    var self = this;
+    // console.log("mqtt", mqtt_url, ld);
+
+    var topic = ld.topic;
+    if (!topic) {
+        topic = url.parse(mqtt_url).replace(/^\//, '');
+    }
+    if (!topic || (topic.length === 0)) {
+        logger.info({
+            method: "_monitor/on(connect)",
+            mqtt_url: mqtt_url,
+            ld: ld,
+            cause: "there must be an explicit topic, either in the URL or the data",
+        }, "cannot subscribe - no topic");
+        return;
+    }
+
+    var payload_topic = null;
+    if (((ld.payload === 'PUT') || (ld.payload === 'PATCH')) && topic.match(/\/#$/)) {
+        payload_topic = topic.substring(0, topic.length - 2);
+    }
+
+    self.mqtt_client = mqtt.connect(mqtt_url);
+    self.mqtt_client.on('connect', function () {
+        logger.info({
+            method: "_monitor/on(connect)",
+            mqtt_url: mqtt_url,
+            topic: topic,
+        }, "connected");
+    });
+    self.mqtt_client.on('subscribed', function () {
+        logger.info({
+            method: "_monitor/on(subscribe)",
+            mqtt_url: mqtt_url,
+            topic: topic,
+        }, "subscribed");
+    });
+    self.mqtt_client.on('error', function (error) {
+        logger.error({
+            method: "_monitor/on(error)",
+            cause: "likely MQTT issue - will automatically reconnect soon",
+            mqtt_url: mqtt_url,
+            topic: topic,
+            error: _.error.message(error),
+        }, "unexpected error");
+    });
+    self.mqtt_client.on('close', function () {
+        logger.error({
+            method: "_monitor/on(close)",
+            cause: "likely MQTT issue - will automatically reconnect soon",
+            mqtt_url: mqtt_url,
+            topic: topic,
+        }, "unexpected close");
+    });
+    self.mqtt_client.on('message', function (msg_topic, msg_payload, msg_packet) {
+        if (!self.native) {
+            return;
+        }
+
+        logger.info({
+            method: "_monitor/on(subscribe)",
+            mqtt_url: mqtt_url,
+            topic: topic,
+            msg_topic: msg_topic,
+            // msg_payload: msg_payload.toString(),
+        }, "message");
+
+        if (payload_topic && msg_payload.length) {
+            try {
+                var key = msg_topic.substring(payload_topic.length);
+                var value = JSON.parse(msg_payload.toString());
+                var d = {};
+                _.d.set(d, key, value);
+
+                self._process_in(d);
+                return;
+            } catch (x) {}
+        }
+
+        // fallthrough
+        self._fetch();
+    });
+
+    self.mqtt_client.subscribe(topic);
 };
 
 /*

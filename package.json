@@ -4,8 +4,8 @@
         "url": "https://github.com/dpjanes/homestar-rest/issues"
     }, 
     "dependencies": {
-        "iotdb": "~0.8.1", 
-        "mqtt": "~1.3.4", 
+        "iotdb": "~0.9.1", 
+        "mqtt": "~1.3.5", 
         "unirest": "~0.4.2"
     }, 
     "description": "HomeStar / IOTDB Bridge for REST", 
@@ -33,5 +33,5 @@
     "scripts": {
         "test": "grunt"
     }, 
-    "version": "0.1.7"
+    "version": "0.1.8"
 }

@@ -221,7 +221,7 @@ RESTBridge.prototype.meta = function () {
     }
 
     return {
-        "iot:thing": _.id.thing_urn.unique_hash("REST", self.initd.url),
+        "iot:thing-id": _.id.thing_urn.unique_hash("REST", self.initd.url),
         "schema:name": self.initd.name || self.native.name || "REST",
     };
 };

@@ -34,7 +34,7 @@ echo "=================="
         README.md LICENSE \
         homestar.json package.json \
         RESTBridge.js index.js \
-        models/*.js \
+        models/*.js models/*.json \
         |
     ( cd "${NPM_DST}" && tar xvf - )
 

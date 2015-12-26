@@ -39,7 +39,9 @@ echo "=================="
     ( cd "${NPM_DST}" && tar xvf - )
 
     cd "${NPM_DST}" || exit 1
-    npm publish
+    npm publish || exit 1
+    git commit -a "new release" package.json || exit 1
+    git push || exit 1
 
     echo "end"
 )

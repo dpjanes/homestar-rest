@@ -11,14 +11,9 @@
 
 var iotdb = require("iotdb");
 
-exports.Model = iotdb.make_model('RESTDimmerLight')
-    .io("on", iotdb.boolean.on)
-    .io("brightness", iotdb.number.unit.brightness)
-    .make();
-
 exports.binding = {
     bridge: require('../RESTBridge').Bridge,
-    model: exports.Model,
+    model: require('./RESTDimmerLight.json'),
     connectd: {},
     discover: false,
 };

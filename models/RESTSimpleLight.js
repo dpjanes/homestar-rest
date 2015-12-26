@@ -11,13 +11,9 @@
 
 var iotdb = require("iotdb");
 
-exports.Model = iotdb.make_model('RESTSimpleLight')
-    .io("on", iotdb.boolean.on)
-    .make();
-
 exports.binding = {
     bridge: require('../RESTBridge').Bridge,
-    model: exports.Model,
+    model: require('./RESTSimpleLight.json'),
     connectd: {},
     discover: false,
 };

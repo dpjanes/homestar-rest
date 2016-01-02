@@ -5,6 +5,7 @@
     }, 
     "dependencies": {
         "iotdb": ">=0.11.0", 
+        "iotdb-links": "~0.0.3", 
         "mqtt": "~1.6.3", 
         "unirest": "~0.4.2"
     }, 
@@ -33,5 +34,5 @@
     "scripts": {
         "test": "grunt"
     }, 
-    "version": "0.1.15"
+    "version": "0.1.16"
 }

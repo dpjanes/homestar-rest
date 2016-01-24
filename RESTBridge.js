@@ -25,13 +25,13 @@
 
 var iotdb = require('iotdb');
 var _ = iotdb._;
-var bunyan = iotdb.bunyan;
 
 var unirest = require('unirest');
 var url = require('url');
 var mqtt = require('mqtt');
+var links = require('iotdb-links');
 
-var logger = bunyan.createLogger({
+var logger = iotdb.logger({
     name: 'homestar-rest',
     module: 'RESTBridge',
 });
@@ -346,7 +346,7 @@ RESTBridge.prototype._mqtt_setup = function (headers) {
         return;
     }
 
-    var ldd = _.http.parse_link(headers.link);
+    var ldd = links.parse(headers.link);
     for (var url in ldd) {
         var ld = ldd[url];
         if (ld.rel !== "mqtt") {

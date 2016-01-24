@@ -13,7 +13,7 @@ var iotdb = require("iotdb");
 
 exports.binding = {
     bridge: require('../RESTBridge').Bridge,
-    model: require('./RESTDimmerLight.json'),
+    model: require('./RestDimmerLight.json'),
     connectd: {},
     discover: false,
 };

@@ -1,5 +1,6 @@
 CREATE MODEL RestColorLight WITH
-    schema:name = "rest-color-light"
+    schema:name = "rest-color-light",
+    iot:facet = iot-facet:lighting
 ATTRIBUTE on WITH
     schema:name = "on",
     iot:purpose = iot-purpose:on,

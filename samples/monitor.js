@@ -29,12 +29,10 @@ var unirest = require('unirest');
 var url = require('url');
 var mqtt = require('mqtt')
 
-var bunyan = iotdb.bunyan;
-
 var unirest = require('unirest');
 var url = require('url');
 
-var logger = bunyan.createLogger({
+var logger = iotdb.logger({
     name: 'homestar-rest',
     module: 'RESTBridge',
 });

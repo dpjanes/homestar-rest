@@ -24,7 +24,7 @@ exports.binding = {
             }
 
             if ((paramd.rawd.rgb !== undefined)) {
-                var color = new _.Color(paramd.rawd.rgb);
+                var color = new _.color.Color(paramd.rawd.rgb);
                 paramd.cookd.color = color.get_hex();
             }
         },
@@ -34,7 +34,7 @@ exports.binding = {
                 paramd.rawd.on = paramd.cookd.on ? true : false;
             }
             if (paramd.cookd.color !== undefined) {
-                var color = new _.Color(paramd.cookd.color);
+                var color = new _.color.Color(paramd.cookd.color);
                 paramd.rawd.rgb = color.get_hex();
                 if (paramd.rawd.rgb === "#000000") {
                     paramd.rawd.on = false;
@@ -62,7 +62,7 @@ exports.binding_rgb = {
             if ((paramd.rawd.red !== undefined) &&
                 (paramd.rawd.green !== undefined) &&
                 (paramd.rawd.blue !== undefined)) {
-                var color = new _.Color();
+                var color = new _.color.Color();
                 color.set_rgb_1(paramd.rawd.red, paramd.rawd.green, paramd.rawd.blue);
 
                 paramd.cookd.color = color.get_hex();
@@ -75,7 +75,7 @@ exports.binding_rgb = {
             }
 
             if (paramd.cookd.color !== undefined) {
-                var color = new _.Color(paramd.cookd.color);
+                var color = new _.color.Color(paramd.cookd.color);
                 paramd.rawd.red = color.r;
                 paramd.rawd.green = color.g;
                 paramd.rawd.blue = color.b;

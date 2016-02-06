@@ -162,7 +162,7 @@ RESTBridge.prototype.disconnect = function () {
 RESTBridge.prototype.push = function (pushd, done) {
     var self = this;
 
-    self._validate_push(pushd);
+    self._validate_push(pushd, done);
 
     self._run(function () {
         if (!self.native) {

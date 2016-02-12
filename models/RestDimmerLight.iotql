@@ -1,6 +1,6 @@
 CREATE MODEL RestDimmerLight WITH
     schema:name = "rest-dimmer-light",
-    iot:facet = iot-facet:lighting
+    iot:facet = iot-facet:lighting.light
 ATTRIBUTE on WITH
     schema:name = "on",
     iot:purpose = iot-purpose:on,

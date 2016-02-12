@@ -28,7 +28,8 @@
   "@type": "iot:Model",
   "schema:name": "rest-dimmer-light",
   "iot:facet": [
-    "iot-facet:lighting"
+    "iot-facet:lighting",
+    "iot-facet:lighting.light"
   ],
   "iot:attribute": [
     {

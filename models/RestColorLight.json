@@ -27,7 +27,8 @@
   "@type": "iot:Model",
   "schema:name": "rest-color-light",
   "iot:facet": [
-    "iot-facet:lighting"
+    "iot-facet:lighting",
+    "iot-facet:lighting.light"
   ],
   "iot:attribute": [
     {

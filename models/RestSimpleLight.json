@@ -23,7 +23,8 @@
   "@type": "iot:Model",
   "schema:name": "rest-simple-light",
   "iot:facet": [
-    "iot-facet:lighting"
+    "iot-facet:lighting",
+    "iot-facet:lighting.light"
   ],
   "iot:attribute": [
     {

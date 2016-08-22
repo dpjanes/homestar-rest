@@ -15,7 +15,7 @@ var _ = iotdb._;
 /* for iotdb-simulators "python server.py rgb_2" */
 exports.binding = {
     bridge: require('../RESTBridge').Bridge,
-    model: require('./RestColorLight.json'),
+    model: require('./rest-color-light.json'),
     discover: false,
     connectd: {
         data_in: function (paramd) {

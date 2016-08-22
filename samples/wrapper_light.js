@@ -11,12 +11,12 @@
 
 "use strict";
 
-var iotdb = require("iotdb");
-var _ = iotdb._;
+const iotdb = require("iotdb");
+const _ = iotdb._;
 
-var ModelBinding = require('../models/RESTSimpleLight');
+const ModelBinding = require('../models/RESTSimpleLight');
 
-var wrapper = _.bridge_wrapper(ModelBinding.binding, {
+const wrapper = _.bridge_wrapper(ModelBinding.binding, {
     url: "http://playground-home.iotdb.org/bedroom/light",
 });
 wrapper.on('bridge', function (bridge) {

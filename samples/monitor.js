@@ -22,24 +22,24 @@
 
 "use strict";
 
-var iotdb = require('iotdb');
-var _ = iotdb._;
+const iotdb = require('iotdb');
+const _ = iotdb._;
 
-var unirest = require('unirest');
-var url = require('url');
-var mqtt = require('mqtt')
+const unirest = require('unirest');
+const url = require('url');
+const mqtt = require('mqtt')
 
-var unirest = require('unirest');
-var url = require('url');
+const unirest = require('unirest');
+const url = require('url');
 
-var logger = iotdb.logger({
+const logger = iotdb.logger({
     name: 'homestar-rest',
     module: 'RESTBridge',
 });
 
-var self = {};
+const self = {};
 
-var _mqtt_setup = function (headers) {
+const _mqtt_setup = function (headers) {
     if (self.mqtt_checked) {
         return;
     }
@@ -62,7 +62,7 @@ var _mqtt_setup = function (headers) {
     }
 };
 
-var _mqtt_monitor = function (mqtt_url, ld) {
+const _mqtt_monitor = function (mqtt_url, ld) {
     console.log("mqtt", mqtt_url, ld);
 
     var topic = ld.topic;
@@ -154,7 +154,7 @@ var _mqtt_monitor = function (mqtt_url, ld) {
     self.mqtt_client.subscribe(topic);
 }
 
-var fetch = function () {
+const fetch = function () {
     unirest
         .get("http://playground-home.iotdb.org/basement/hue/1")
         .end(function (result) {

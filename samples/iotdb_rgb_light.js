@@ -12,15 +12,16 @@
 
 "use strict";
 
-var iotdb = require('iotdb');
-var _ = iotdb._;
-var iot = iotdb.iot();
+const iotdb = require('iotdb');
+const _ = iotdb._;
 
-var things = iot.connect("RESTRGBLight", {
+iotdb.use("homestar-rest");
+
+const things = iotdb.connect("RESTRGBLight", {
     url: "http://playground-home.iotdb.org/basement/rgb/1",
 });
-things.on('state', function (thing) {
-    console.log("+ state\n ", thing.thing_id(), "\n ", thing.state("istate"));
+things.on('istate', function (thing) {
+    console.log("+ istate\n ", thing.thing_id(), "\n ", thing.state("istate"));
 });
 things.on("meta", function (thing) {
     console.log("+ meta\n ", thing.thing_id(), thing.state("meta"));
@@ -29,8 +30,8 @@ things.on("thing", function (thing) {
     console.log("+ discovered\n ", thing.thing_id(), thing.state("meta"));
 });
 
-var count = 0;
-var colors = ["#FF0000", "#00FF00", "#0000FF", "#00FFFF", "#FF00FF", "#FFFF00", "#FFFFFF", "#000000"];
+let count = 0;
+const colors = ["#FF0000", "#00FF00", "#0000FF", "#00FFFF", "#FF00FF", "#FFFF00", "#FFFFFF", "#000000"];
 setInterval(function () {
     things.set(":color", colors[count++ % colors.length]);
 }, 2 * 1000);

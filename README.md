@@ -1,5 +1,5 @@
 # homestar-rest
-IOTDB / HomeStar Controller for REST / Web Interfaces
+[IOTDB](https://github.com/dpjanes/node-iotdb) Bridge to REST / Web Interfaces.
 
 <img src="https://raw.githubusercontent.com/dpjanes/iotdb-homestar/master/docs/HomeStar.png" align="right" />
 

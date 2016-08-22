@@ -3,15 +3,18 @@
 
 <img src="https://raw.githubusercontent.com/dpjanes/iotdb-homestar/master/docs/HomeStar.png" align="right" />
 
+# About
 
 See <a href="samples/">the samples</a> for details how to add to your project,
 particularly ones called <code>iotdb\_\*.js</code>
 
 # Installation
 
-Run the following command to install
+* [Read this first](https://github.com/dpjanes/node-iotdb/blob/master/docs/install.md)
 
-    $ homestar install homestar-rest
+Then:
+
+    $ npm install homestar-rest
 
 If you're a developer, run this command in extract directory
 

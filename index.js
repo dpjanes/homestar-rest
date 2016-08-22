@@ -29,8 +29,3 @@ exports.bindings = [
     require('./models/RESTColorLight').binding,
     require('./models/RESTColorLight').binding_rgb,
 ];
-
-exports.iotdb = require("iotdb");
-exports.wrap = function (name, initd) {
-    return exports.iotdb.make_wrap(name, exports.bindings, initd);
-};

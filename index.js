@@ -29,3 +29,5 @@ exports.bindings = [
     require('./models/RESTColorLight').binding,
     require('./models/RESTColorLight').binding_rgb,
 ];
+
+exports.module_folder = __dirname;

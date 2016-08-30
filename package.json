@@ -6,7 +6,7 @@
     "dependencies": {
         "iotdb": ">=3.0.0", 
         "iotdb-links": "~0.0.4", 
-        "mqtt": "~1.14.0", 
+        "mqtt": "~1.14.1", 
         "unirest": "~0.5.1"
     }, 
     "description": "IOTDB Bridge for REST API", 
@@ -34,5 +34,5 @@
     "scripts": {
         "test": "grunt"
     }, 
-    "version": "0.1.21"
+    "version": "0.1.22"
 }
